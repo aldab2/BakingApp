@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -99,7 +100,10 @@ public class RecipesListFragment extends Fragment {
         dummy.add(new Recipe(1,"Hala",1));
         mAdapter = new RecipeAdapter(dummy,getContext());
         mRecylerView.setAdapter(mAdapter);
-        
+        int cols = calculateNoOfColumns(getContext());
+        mRecylerView.setLayoutManager(new GridLayoutManager(getContext(),cols));
+
+
 
 
         URL url=null;
@@ -109,7 +113,7 @@ public class RecipesListFragment extends Fragment {
         catch (MalformedURLException mue){
             mue.printStackTrace();
         }
-        //new LoadListFragment().execute(url);
+        new LoadListFragment().execute(url);
 
         return view;
     }
