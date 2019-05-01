@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.android.bakingapp.POJOs.Data.RecipesHolder;
 import com.example.android.bakingapp.POJOs.Recipe;
 import com.example.android.bakingapp.R;
 
@@ -78,7 +79,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
 
     // TODO implement View.onClickListner
-    class RecipeViewHolder extends  RecyclerView.ViewHolder implements View.OnClickListener   {
+    class RecipeViewHolder extends  RecyclerView.ViewHolder implements View.OnClickListener ,RecipesListFragment.OnRicipeClickListener  {
             TextView mRecipeName;
             int clickedViewPosition=-99;
         public RecipeViewHolder(View view){
@@ -98,8 +99,31 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             mRecipeName = (TextView) holder.itemView.findViewById(R.id.tv_recipe_name);
             mRecipeName.setText(recipes.get(clickedViewPosition).getName());
 
+
         }
         Toast mToast;
+
+        @Override
+        public void onRecipeClick(int position) {
+
+            if(RecipesHolder.recipes.size()!=0) {
+                Log.e("XXXXXX", "onRecipeClick: We ARE Here in the Adapter Holder Not Zero" );
+
+                Recipe selectedRicipe = RecipesHolder.recipes.get(position);
+                Bundle b = new Bundle();
+                b.putSerializable("recipe", selectedRicipe);
+
+                DetailedFragment detailedFragment = new DetailedFragment();
+                detailedFragment.setArguments(b);
+                FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();
+                fm.beginTransaction().replace(R.id.fragment_container, detailedFragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+            else
+            Log.e("XXXXXX", "onRecipeClick: We ARE Here in the Adapter Holder Size Zero" );
+
+        }
 
         @Override
         public void onClick(View view) {
@@ -112,12 +136,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
                 b.putSerializable("recipe",recipes.get(clickedViewPosition));
 
-            DetailedFragment detailedFragment = new DetailedFragment();
-            detailedFragment.setArguments(b);
-
-            FragmentManager fm = ((AppCompatActivity)context).getSupportFragmentManager();
-            //fm.beginTransaction().add()
-            //
+                onRecipeClick(clickedViewPosition);
 
 
 

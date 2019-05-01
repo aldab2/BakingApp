@@ -6,9 +6,19 @@
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:id="@+id/tv_detailed_fragment"
+        android:id="@+id/tv_recipe_name"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/hello_blank_fragment" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_list_ing_steps"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        >
+
+    </android.support.v7.widget.RecyclerView>
+
 
 </FrameLayout>

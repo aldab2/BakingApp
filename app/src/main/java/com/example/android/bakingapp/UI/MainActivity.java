@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 
+import com.example.android.bakingapp.POJOs.Data.RecipesHolder;
 import com.example.android.bakingapp.POJOs.Recipe;
 import com.example.android.bakingapp.R;
 import com.example.android.bakingapp.Utils.RecipeJsonUtils;
@@ -28,7 +29,7 @@ import java.util.Scanner;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements DetailedFragment.OnFragmentClickListener {
+public class MainActivity extends AppCompatActivity implements DetailedFragment.OnFragmentClickListener,RecipesListFragment.OnRicipeClickListener {
 
 
 
@@ -50,9 +51,38 @@ public class MainActivity extends AppCompatActivity implements DetailedFragment.
 
     }
 
+    @Override
+    public void onRecipeClick(int position) {
+        Log.e("XXXXXX", "onRecipeClick: We ARE IN MainActivity" );
+        Recipe selectedRicipe = RecipesHolder.recipes.get(position);
+        Bundle b = new Bundle();
+        b.putSerializable("recipe",selectedRicipe);
 
+        DetailedFragment detailedFragment = new DetailedFragment();
+        detailedFragment.setArguments(b);
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction().replace(R.id.fragment_container,detailedFragment)
+        .commit();
+
+
+    }
+
+
+    // Todo Change this method's name
     @Override
     public void onRecipeSelected(int position) {
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        Log.e("XXXXX", "onBackPressed: "+getSupportFragmentManager().getBackStackEntryCount() );
+        //TODO (9) : Use popBackStack to return to the previous fragment and if it is the first fragment call the parent class's constructor (super)
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
+        }
 
     }
 }

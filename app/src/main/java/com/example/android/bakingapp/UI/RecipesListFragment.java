@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.example.android.bakingapp.POJOs.Data.RecipesHolder;
 import com.example.android.bakingapp.POJOs.Recipe;
 import com.example.android.bakingapp.R;
 import com.example.android.bakingapp.Utils.RecipeJsonUtils;
@@ -32,7 +33,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link RecipesListFragment.OnFragmentInteractionListener} interface
+ * {@link OnRicipeClickListener} interface
  * to handle interaction events.
  * Use the {@link RecipesListFragment#newInstance} factory method to
  * create an instance of this fragment.
@@ -44,7 +45,7 @@ public class RecipesListFragment extends Fragment {
     //private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private ArrayList<Recipe> recipes;
+   //private ArrayList<Recipe> recipes;
     @BindView(R.id.rv_list_recipe)
     RecyclerView mRecylerView;
 
@@ -55,7 +56,7 @@ public class RecipesListFragment extends Fragment {
     RecipeAdapter mAdapter;
     //private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
+    private OnRicipeClickListener mListener;
 
     public RecipesListFragment() {
         // Required empty public constructor
@@ -84,7 +85,7 @@ public class RecipesListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            recipes = (ArrayList<Recipe>) getArguments().getSerializable(ARG_LIST_RECIPES);
+            RecipesHolder.recipes = (ArrayList<Recipe>) getArguments().getSerializable(ARG_LIST_RECIPES);
             //mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
@@ -96,9 +97,7 @@ public class RecipesListFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_recipes_list, container, false);
         ButterKnife.bind(this,view);
-        ArrayList<Recipe> dummy = new ArrayList<>();
-        dummy.add(new Recipe(1,"Hala",1));
-        mAdapter = new RecipeAdapter(dummy,getContext());
+
         mRecylerView.setAdapter(mAdapter);
         int cols = calculateNoOfColumns(getContext());
         mRecylerView.setLayoutManager(new GridLayoutManager(getContext(),cols));
@@ -114,6 +113,8 @@ public class RecipesListFragment extends Fragment {
             mue.printStackTrace();
         }
         new LoadListFragment().execute(url);
+
+
 
         return view;
     }
@@ -143,7 +144,8 @@ public class RecipesListFragment extends Fragment {
         protected void onPostExecute(ArrayList<Recipe> recipes) {
             super.onPostExecute(recipes);
             mProressBar.setVisibility(View.INVISIBLE);
-            mAdapter = new RecipeAdapter(recipes,getContext());
+            RecipesHolder.recipes = recipes;
+            mAdapter = new RecipeAdapter(RecipesHolder.recipes,getContext());
             mRecylerView.setAdapter(mAdapter);
 
 
@@ -151,23 +153,23 @@ public class RecipesListFragment extends Fragment {
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+    /*public void onRecipeClicked(int position) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onRecipeClick(position);
+        }
+    }*/
+
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnRicipeClickListener) {
+            mListener = (OnRicipeClickListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnRicipeClickListener");
         }
     }
-
-    //Todo Uncomment This Method and implement it
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
 
     @Override
     public void onDetach() {
@@ -185,9 +187,9 @@ public class RecipesListFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
+    public interface OnRicipeClickListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onRecipeClick(int position);
     }
 
     public static int calculateNoOfColumns(Context context) {
