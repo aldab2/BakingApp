@@ -1,7 +1,10 @@
 package com.example.android.bakingapp.UI;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -11,9 +14,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.android.bakingapp.POJOs.Data.RecipesHolder;
+import com.example.android.bakingapp.POJOs.Ingredient;
 import com.example.android.bakingapp.POJOs.Recipe;
 import com.example.android.bakingapp.R;
 
+import java.util.ArrayList;
 import java.util.zip.Inflater;
 
 import butterknife.BindView;
@@ -70,7 +76,7 @@ public class DetailedRecipeAdapter extends RecyclerView.Adapter<DetailedRecipeAd
         return size;
     }
 
-    class RecipeViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener {
+    class RecipeViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener , DetailedFragment.OnFragmentClickListener {
         @BindView(R.id.tv_recipe_item)
         TextView mTvRecipeItem;
         int clickedView=-8;
@@ -97,10 +103,29 @@ public class DetailedRecipeAdapter extends RecyclerView.Adapter<DetailedRecipeAd
             mToast.show();
             if(adapterPosition ==0){
                 // Todo Handle and open the ingredients Fragment
+                onRecipeSelected(adapterPosition);
             }
             else {
                 // Todo Handle and open the steps Fragment
 
+            }
+        }
+
+        @Override
+        public void onRecipeSelected(int position) {
+            if(RecipesHolder.recipes.size()!=0) {
+                Log.e("XXXXXX", "onRecipeClick: We ARE Here in the Adapter Holder Not Zero" );
+
+                ArrayList<Ingredient> selectedIngredient = RecipesHolder.recipes.get(position).getIngredients();
+                Bundle b = new Bundle();
+                b.putSerializable("ingredients", selectedIngredient);
+
+                IngredientFragment fragment = new IngredientFragment();
+                fragment.setArguments(b);
+                FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();
+                fm.beginTransaction().replace(R.id.fragment_container, fragment)
+                        .addToBackStack(null)
+                        .commit();
             }
         }
     }

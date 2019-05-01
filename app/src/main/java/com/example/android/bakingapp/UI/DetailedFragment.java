@@ -75,7 +75,7 @@ public class DetailedFragment extends Fragment {
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(int position) {
+    public void onItemClickedPressed(int position) {
         if (mListener != null) {
             mListener.onRecipeSelected(position);
         }
