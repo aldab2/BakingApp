@@ -1,16 +1,17 @@
 package com.example.android.bakingapp.UI;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
+import com.example.android.bakingapp.POJOs.Data.RecipesHolder;
 import com.example.android.bakingapp.POJOs.Ingredient;
 import com.example.android.bakingapp.R;
 
@@ -72,16 +73,34 @@ public class IngredientFragment extends Fragment {
     }
     @BindView(R.id.rv_ingredient)
     RecyclerView mRecyclerView;
+    @BindView(R.id.btn_next)
+    FloatingActionButton mNextButton;
+    @BindView(R.id.btn_prev)
+    FloatingActionButton mPrevButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_ingredient, container, false);
+        View view = inflater.inflate(R.layout.fragment_ingredient_steps_list, container, false);
         ButterKnife.bind(this,view);
         IngredientAdapter mAdapter = new IngredientAdapter(getContext(),ingredients);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mNextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fm = ((AppCompatActivity) getContext()).getSupportFragmentManager();
+                ArrayList<Ingredient> ingredients = RecipesHolder.recipes.get(2).getIngredients();
+                IngredientFragment fragment = new IngredientFragment();
+                Bundle b = new Bundle();
+                b.putSerializable("ingredients",ingredients);
+                fragment.setArguments(b);
+                fm.beginTransaction()
+                        .replace(R.id.fragment_container,fragment)
+                        .commit();
+            }
+        });
 
 
         return view;
