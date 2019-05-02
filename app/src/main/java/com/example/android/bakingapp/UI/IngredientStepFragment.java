@@ -23,12 +23,12 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link IngredientFragment.OnFragmentInteractionListener} interface
+ * {@link IngredientStepFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link IngredientFragment#newInstance} factory method to
+ * Use the {@link IngredientStepFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class IngredientFragment extends Fragment {
+public class IngredientStepFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_INGREDIENTS = "ingredients";
@@ -41,7 +41,7 @@ public class IngredientFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public IngredientFragment() {
+    public IngredientStepFragment() {
         // Required empty public constructor
     }
 
@@ -51,11 +51,11 @@ public class IngredientFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment IngredientFragment.
+     * @return A new instance of fragment IngredientStepFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static IngredientFragment newInstance(String param1, String param2) {
-        IngredientFragment fragment = new IngredientFragment();
+    public static IngredientStepFragment newInstance(String param1, String param2) {
+        IngredientStepFragment fragment = new IngredientStepFragment();
         Bundle args = new Bundle();
         args.putString(ARG_INGREDIENTS, param1);
         //args.putString(ARG_PARAM2, param2);
@@ -92,7 +92,7 @@ public class IngredientFragment extends Fragment {
             public void onClick(View view) {
                 FragmentManager fm = ((AppCompatActivity) getContext()).getSupportFragmentManager();
                 ArrayList<Ingredient> ingredients = RecipesHolder.recipes.get(2).getIngredients();
-                IngredientFragment fragment = new IngredientFragment();
+                IngredientStepFragment fragment = new IngredientStepFragment();
                 Bundle b = new Bundle();
                 b.putSerializable("ingredients",ingredients);
                 fragment.setArguments(b);

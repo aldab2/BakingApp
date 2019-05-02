@@ -6,4 +6,6 @@
     <string name="measure">Measure:</string>
     <string name="quantitiy">Quantity:</string>
     <string name="ingedrient">Ingredient:</string>
+    <string name="btn_next">Next</string>
+    <string name="btn_prev">Previous</string>
 </resources>

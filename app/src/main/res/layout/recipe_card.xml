@@ -13,7 +13,7 @@ android:id="@+id/cv_recipe_details"
 android:layout_gravity="center"
 android:layout_width="match_parent"
 android:layout_margin="16dp"
-android:layout_height="200dp"
+android:layout_height="150dp"
 
 card_view:cardCornerRadius="12dp"
 card_view:cardBackgroundColor="@color/colorSugarish">
@@ -25,6 +25,7 @@ card_view:cardBackgroundColor="@color/colorSugarish">
         android:gravity="center"
         android:textSize="28sp"
         tools:text="RecipeName"
+        android:fontFamily="casual"
         android:textColor="@color/colorPrimaryDark"/>
 </android.support.v7.widget.CardView>
     </LinearLayout>

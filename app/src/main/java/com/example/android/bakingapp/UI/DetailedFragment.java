@@ -3,7 +3,10 @@ package com.example.android.bakingapp.UI;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,8 +15,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.android.bakingapp.POJOs.Data.RecipesHolder;
+import com.example.android.bakingapp.POJOs.Ingredient;
 import com.example.android.bakingapp.POJOs.Recipe;
 import com.example.android.bakingapp.R;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,8 +64,9 @@ public class DetailedFragment extends Fragment {
     }
     @BindView(R.id.rv_list_ing_steps)
     RecyclerView mRecyclerView;
-    @BindView(R.id.tv_recipe_name)
-    TextView mtvRecipeName;
+
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,6 +78,7 @@ public class DetailedFragment extends Fragment {
           DetailedRecipeAdapter detailedRecipeAdapter = new DetailedRecipeAdapter(recipe,getContext());
           mRecyclerView.setAdapter(detailedRecipeAdapter);
           mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
       }
         return view;
     }

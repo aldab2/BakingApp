@@ -1,11 +1,11 @@
 package com.example.android.bakingapp.UI;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,7 +20,6 @@ import com.example.android.bakingapp.POJOs.Recipe;
 import com.example.android.bakingapp.R;
 
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -76,7 +75,7 @@ public class DetailedRecipeAdapter extends RecyclerView.Adapter<DetailedRecipeAd
         return size;
     }
 
-    class RecipeViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener , DetailedFragment.OnFragmentClickListener {
+    class RecipeViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener , DetailedFragment.OnFragmentClickListener , VideoFragment.OnFragmentInteractionListener {
         @BindView(R.id.tv_recipe_item)
         TextView mTvRecipeItem;
         int clickedView=-8;
@@ -107,6 +106,7 @@ public class DetailedRecipeAdapter extends RecyclerView.Adapter<DetailedRecipeAd
             }
             else {
                 // Todo Handle and open the steps Fragment
+                onFragmentInteraction(new Uri.Builder().build());
 
             }
         }
@@ -120,13 +120,27 @@ public class DetailedRecipeAdapter extends RecyclerView.Adapter<DetailedRecipeAd
                 Bundle b = new Bundle();
                 b.putSerializable("ingredients", selectedIngredient);
 
-                IngredientFragment fragment = new IngredientFragment();
+                IngredientStepFragment fragment = new IngredientStepFragment();
                 fragment.setArguments(b);
                 FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();
                 fm.beginTransaction().replace(R.id.fragment_container, fragment)
                         .addToBackStack(null)
                         .commit();
             }
+        }
+
+        @Override
+        public void onFragmentInteraction(Uri uri) {
+            //Todo This method was implemented in Rush... Fix it!
+            /*ArrayList<Ingredient> selectedIngredient = RecipesHolder.recipes.get(position).getIngredients();
+            Bundle b = new Bundle();
+            b.putSerializable("ingredients", selectedIngredient);*/
+            IngredientStepFragment fragment = new IngredientStepFragment();
+            //fragment.setArguments(b);
+            FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();
+            fm.beginTransaction().replace(R.id.fragment_container, fragment)
+                    .addToBackStack(null)
+                    .commit();
         }
     }
 }

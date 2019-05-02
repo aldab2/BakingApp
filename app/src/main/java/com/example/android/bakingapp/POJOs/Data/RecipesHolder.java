@@ -10,4 +10,5 @@ import java.util.ArrayList;
 
 public class RecipesHolder {
     public static ArrayList<Recipe> recipes = new ArrayList<>();
+
 }

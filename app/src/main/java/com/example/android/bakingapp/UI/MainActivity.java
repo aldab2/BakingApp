@@ -38,11 +38,14 @@ public class MainActivity extends AppCompatActivity implements DetailedFragment.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RecipesListFragment recipesListFragment = new RecipesListFragment();
-        FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction().add(
-                R.id.fragment_container,recipesListFragment
-        ).commit();
+        if(savedInstanceState == null) {
+
+            RecipesListFragment recipesListFragment = new RecipesListFragment();
+            FragmentManager fm = getSupportFragmentManager();
+            fm.beginTransaction().add(
+                    R.id.fragment_container, recipesListFragment
+            ).commit();
+        }
 
 
 
