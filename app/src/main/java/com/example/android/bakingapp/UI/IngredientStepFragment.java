@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.example.android.bakingapp.POJOs.Data.RecipesHolder;
 import com.example.android.bakingapp.POJOs.Ingredient;
+import com.example.android.bakingapp.POJOs.RecipeStep;
 import com.example.android.bakingapp.R;
 
 import java.util.ArrayList;
@@ -20,22 +22,21 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link IngredientStepFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link IngredientStepFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class IngredientStepFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_INGREDIENTS = "ingredients";
+    private static final String ARG_STEPS = "steps";
+    private static final String ARG_ONESTEP = "step";
+    private static final String ARG_ACTION_TYPE = "action";
     //private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
     private ArrayList<Ingredient> ingredients;
+    private ArrayList<RecipeStep> steps;
+    private RecipeStep step;
+    private String action;
 
 
 
@@ -45,30 +46,26 @@ public class IngredientStepFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment IngredientStepFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static IngredientStepFragment newInstance(String param1, String param2) {
+
+  /*  // TODO: Rename and change types and number of parameters
+    public static IngredientStepFragment newInstance(String param1, String param2,String params3) {
         IngredientStepFragment fragment = new IngredientStepFragment();
         Bundle args = new Bundle();
         args.putString(ARG_INGREDIENTS, param1);
-        //args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_STEPS, param2);
+        args.putString(ARG_ACTION_TYPE,params3);
         fragment.setArguments(args);
         return fragment;
-    }
+    }*/
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             ingredients = (ArrayList<Ingredient>) getArguments().getSerializable(ARG_INGREDIENTS);
-
+            steps = (ArrayList<RecipeStep>) getArguments().getSerializable(ARG_STEPS);
+            action = getArguments().getString(ARG_ACTION_TYPE);
+            step =(RecipeStep) getArguments().getSerializable(ARG_ONESTEP);
         }
     }
     @BindView(R.id.rv_ingredient)
@@ -78,27 +75,20 @@ public class IngredientStepFragment extends Fragment {
     @BindView(R.id.btn_prev)
     FloatingActionButton mPrevButton;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_ingredient_steps_list, container, false);
         ButterKnife.bind(this,view);
-        IngredientAdapter mAdapter = new IngredientAdapter(getContext(),ingredients);
+        IngredientStepsAdapter mAdapter = new IngredientStepsAdapter(getContext(),ingredients,step,action);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentManager fm = ((AppCompatActivity) getContext()).getSupportFragmentManager();
-                ArrayList<Ingredient> ingredients = RecipesHolder.recipes.get(2).getIngredients();
-                IngredientStepFragment fragment = new IngredientStepFragment();
-                Bundle b = new Bundle();
-                b.putSerializable("ingredients",ingredients);
-                fragment.setArguments(b);
-                fm.beginTransaction()
-                        .replace(R.id.fragment_container,fragment)
-                        .commit();
+                //Todo implement this
             }
         });
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,16 +7,25 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     >
-    <android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/card_view"
-        android:layout_gravity="center"
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cv_ingredient_item"
         android:layout_width="match_parent"
-        android:layout_margin="2dp"
         android:layout_height="wrap_content"
 
+        android:layout_margin="2dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="0dp"
+        android:visibility="visible"
+        card_view:cardBackgroundColor="@color/colorSugarish"
         card_view:cardCornerRadius="12dp"
-        card_view:cardBackgroundColor="@color/colorSugarish">
+        card_view:layout_constraintBottom_toBottomOf="@+id/ll_step_item"
+        card_view:layout_constraintEnd_toEndOf="parent"
+        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintTop_toTopOf="parent">
+
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -24,13 +33,13 @@
             <TextView
                 android:id="@+id/fxtv_ingredient_quantity"
                 android:layout_width="167dp"
-                android:fontFamily="sans-serif-smallcaps"
-
                 android:layout_height="41dp"
+
                 android:layout_gravity="center"
                 android:layout_marginEnd="4dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
+                android:fontFamily="sans-serif-smallcaps"
                 android:gravity="center"
 
                 android:text="@string/quantitiy"
@@ -44,12 +53,12 @@
 
             <TextView
                 android:id="@+id/fxtv_ingredient_measure"
-                android:fontFamily="sans-serif-smallcaps"
                 android:layout_width="167dp"
                 android:layout_height="41dp"
                 android:layout_gravity="center"
                 android:layout_marginEnd="4dp"
                 android:layout_marginTop="8dp"
+                android:fontFamily="sans-serif-smallcaps"
                 android:gravity="center"
 
                 android:text="@string/measure"
@@ -63,12 +72,12 @@
 
             <TextView
                 android:id="@+id/fxtv_ingredient_ingredient"
-                android:fontFamily="sans-serif-smallcaps"
                 android:layout_width="167dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_marginEnd="8dp"
                 android:layout_marginTop="8dp"
+                android:fontFamily="sans-serif-smallcaps"
                 android:gravity="center"
 
                 android:text="@string/ingedrient"
@@ -82,13 +91,13 @@
 
             <TextView
                 android:id="@+id/tv_ingredient_quantity"
-                android:fontFamily="sans-serif"
                 android:layout_width="171dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="8dp"
+                android:fontFamily="sans-serif"
                 android:gravity="center"
 
                 android:textColor="@color/colorPrimaryDark"
@@ -101,13 +110,13 @@
 
             <TextView
                 android:id="@+id/tv_ingredient_measure"
-                android:fontFamily="sans-serif"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="8dp"
+                android:fontFamily="sans-serif"
                 android:gravity="center"
 
                 android:textColor="@color/colorPrimaryDark"
@@ -120,14 +129,14 @@
 
             <TextView
                 android:id="@+id/tv_ingredient_ingredient"
-                android:fontFamily="sans-serif"
-
                 android:layout_width="wrap_content"
+
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:fontFamily="sans-serif"
 
                 android:gravity="center"
                 android:textColor="@color/colorPrimaryDark"
@@ -144,4 +153,82 @@
 
     </android.support.v7.widget.CardView>
 
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_step_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/colorSugarish">
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        >
+
+                <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+                    android:id="@+id/exoview_step"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+
+
+
+
+                    ></com.google.android.exoplayer2.ui.SimpleExoPlayerView>
+
+
+                <TextView
+                    android:id="@+id/tv_step_short_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:fontFamily="casual"
+                    android:gravity="center"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="24sp"
+                    tools:text="Short Desc:" />
+
+                <TextView
+                    android:id="@+id/tv_step_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:fontFamily="casual"
+                    android:gravity="center"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18sp"
+                    tools:text="Desc" />
+
+                    </LinearLayout>
+                </ScrollView>
+
+
+
+            </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+</FrameLayout>

@@ -1,26 +1,16 @@
 package com.example.android.bakingapp.UI;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.example.android.bakingapp.POJOs.Data.RecipesHolder;
-import com.example.android.bakingapp.POJOs.Ingredient;
 import com.example.android.bakingapp.POJOs.Recipe;
 import com.example.android.bakingapp.R;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -86,7 +76,8 @@ public class DetailedFragment extends Fragment {
     // TODO: Rename method, update argument and hook method into UI event
     public void onItemClickedPressed(int position) {
         if (mListener != null) {
-            mListener.onRecipeSelected(position);
+            mListener.onRecipeIngredientSelected(position);
+            mListener.onRecipeStepSelected(position);
         }
     }
 
@@ -119,6 +110,7 @@ public class DetailedFragment extends Fragment {
      */
     public interface OnFragmentClickListener {
         // TODO: Update argument type and name
-        void onRecipeSelected(int position);
+        void onRecipeIngredientSelected(int position);
+        void onRecipeStepSelected(int position);
     }
 }

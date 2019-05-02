@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.android.bakingapp.POJOs.Data.RecipesHolder;
 import com.example.android.bakingapp.POJOs.Ingredient;
 import com.example.android.bakingapp.POJOs.Recipe;
+import com.example.android.bakingapp.POJOs.RecipeStep;
 import com.example.android.bakingapp.R;
 
 import java.util.ArrayList;
@@ -28,12 +29,13 @@ import butterknife.ButterKnife;
  * Created by Kingdom on 5/1/2019.
  */
 
-public class DetailedRecipeAdapter extends RecyclerView.Adapter<DetailedRecipeAdapter.RecipeViewHolder>  {
+public class DetailedRecipeAdapter extends RecyclerView.Adapter<DetailedRecipeAdapter.RecipeViewHolder> {
 
     private Context context;
     private Recipe recipe;
-    public DetailedRecipeAdapter(Recipe recipe,Context context) {
-        this.recipe= recipe;
+
+    public DetailedRecipeAdapter(Recipe recipe, Context context) {
+        this.recipe = recipe;
         this.context = context;
     }
 
@@ -42,83 +44,81 @@ public class DetailedRecipeAdapter extends RecyclerView.Adapter<DetailedRecipeAd
     public RecipeViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.recipe_item,viewGroup,false);
+        View view = inflater.inflate(R.layout.recipe_item, viewGroup, false);
         RecipeViewHolder recipeViewHolder = new RecipeViewHolder(view);
         return recipeViewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecipeViewHolder holder, int i) {
-        i=holder.getAdapterPosition();
-        if(recipe==null){
-            Log.e("XXXX","onBindViewHolder NULL RECIPE ??!!?!?!?!?" );
-        }
-        else{
-            if (i==0){
-            holder.mTvRecipeItem.setText("Ingredients");
-            }
-            else {
+        i = holder.getAdapterPosition();
+        if (recipe == null) {
+           // Log.e("XXXX", "onBindViewHolder NULL RECIPE ??!!?!?!?!?");
+        } else {
+            if (i == 0) {
+                holder.mTvRecipeItem.setText("Ingredients");
+            } else {
                 holder.mTvRecipeItem.setText("Step#" + i);
             }
         }
-        Log.e("XXXX","position =  "+i );
+        //Log.e("XXXX", "position =  " + i);
     }
 
     @Override
     public int getItemCount() {
-        if(recipe==null) {
+        if (recipe == null) {
 
             return 0;
         }
-        int size = recipe.getSteps().size()+1;
+        int size = recipe.getSteps().size() + 1;
 
         return size;
     }
 
-    class RecipeViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener , DetailedFragment.OnFragmentClickListener , VideoFragment.OnFragmentInteractionListener {
+    class RecipeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, DetailedFragment.OnFragmentClickListener {
         @BindView(R.id.tv_recipe_item)
         TextView mTvRecipeItem;
-        int clickedView=-8;
-
+        int clickedView = -8;
 
 
         public RecipeViewHolder(@NonNull View itemView) {
 
             super(itemView);
 
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
 
 
         }
+
         Toast mToast;
 
         @Override
         public void onClick(View view) {
-            if (mToast!=null)
+            if (mToast != null)
                 mToast.cancel();
             int adapterPosition = getAdapterPosition();
-            mToast =  Toast.makeText(view.getContext()," positon"+ adapterPosition +" Was clicked",Toast.LENGTH_SHORT);
+            mToast = Toast.makeText(view.getContext(), " positon" + adapterPosition + " Was clicked", Toast.LENGTH_SHORT);
             mToast.show();
-            if(adapterPosition ==0){
+            if (adapterPosition == 0) {
                 // Todo Handle and open the ingredients Fragment
-                onRecipeSelected(adapterPosition);
-            }
-            else {
+                onRecipeIngredientSelected(adapterPosition);
+            } else {
                 // Todo Handle and open the steps Fragment
-                onFragmentInteraction(new Uri.Builder().build());
+                onRecipeStepSelected(adapterPosition);
 
             }
         }
 
         @Override
-        public void onRecipeSelected(int position) {
-            if(RecipesHolder.recipes.size()!=0) {
-                Log.e("XXXXXX", "onRecipeClick: We ARE Here in the Adapter Holder Not Zero" );
+        public void onRecipeIngredientSelected(int position) {
+            if (RecipesHolder.recipes.size() != 0) {
+                Log.e("XXXXXX", "onRecipeIngredientSelected: Position is "+position);
 
-                ArrayList<Ingredient> selectedIngredient = RecipesHolder.recipes.get(position).getIngredients();
+                ArrayList<Ingredient> selectedIngredient = recipe.getIngredients();//RecipesHolder.recipes.get(position).getIngredients();
                 Bundle b = new Bundle();
                 b.putSerializable("ingredients", selectedIngredient);
+                b.putString("action", "ingredients");
 
                 IngredientStepFragment fragment = new IngredientStepFragment();
                 fragment.setArguments(b);
@@ -130,17 +130,25 @@ public class DetailedRecipeAdapter extends RecyclerView.Adapter<DetailedRecipeAd
         }
 
         @Override
-        public void onFragmentInteraction(Uri uri) {
-            //Todo This method was implemented in Rush... Fix it!
-            /*ArrayList<Ingredient> selectedIngredient = RecipesHolder.recipes.get(position).getIngredients();
-            Bundle b = new Bundle();
-            b.putSerializable("ingredients", selectedIngredient);*/
-            IngredientStepFragment fragment = new IngredientStepFragment();
-            //fragment.setArguments(b);
-            FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();
-            fm.beginTransaction().replace(R.id.fragment_container, fragment)
-                    .addToBackStack(null)
-                    .commit();
+        public void onRecipeStepSelected(int position) {
+            if (RecipesHolder.recipes.size() != 0) {
+               // Log.e("XXXXXX", "onRecipeClick: We ARE Here in the Adapter Holder Not Zero");
+                Log.e("XXXXXX", "onRecipeStepSelected: Position is "+position);
+
+                RecipeStep selectedStep = recipe.getSteps().get(position-1);//RecipesHolder.recipes.get(position).getSteps();
+                Bundle b = new Bundle();
+                b.putSerializable("step", selectedStep);
+                b.putString("action", "steps");
+
+                IngredientStepFragment fragment = new IngredientStepFragment();
+                fragment.setArguments(b);
+                FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();
+                fm.beginTransaction().replace(R.id.fragment_container, fragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
         }
+
+
     }
 }

@@ -570,7 +570,7 @@ public class RecipeJsonUtils {
                 servings = recipe.getInt("servings");
                 JSONArray jsonIngredients = recipe.getJSONArray("ingredients");
                 JSONArray jsonSteps = recipe.getJSONArray("steps");
-                for( int j=0;j<jsonIngredients.length() && j< jsonSteps.length();j++){
+                for( int j=0;j<jsonIngredients.length() || j< jsonSteps.length();j++){
                     if(j<jsonIngredients.length()){
                         // Parse Ingredients
                         double quantity;
@@ -599,9 +599,11 @@ public class RecipeJsonUtils {
                         thubURL= jsonStep.getString("thumbnailURL");
                         RecipeStep step = new RecipeStep(stepId,shortDesc,description,vidURL,thubURL);
                         steps.add(step);
+                        Log.e("XXXX", "reviewJsonParse: "+step.getShortDescription() );
                     }
+
                 }
-                Log.e("XXXXX"," Name = "+name+" id: "+id );
+                //Log.e("XXXXX"," Name = "+name+" id: "+id );
                 Recipe parsedRecipe = new Recipe(id,name,ingredients,steps,servings);
                 recipes.add(parsedRecipe);
 

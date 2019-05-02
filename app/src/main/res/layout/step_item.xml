@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_step_item"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:orientation="vertical"
+    android:visibility="visible">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+                android:id="@+id/exoview_step"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+
+
+                ></com.google.android.exoplayer2.ui.SimpleExoPlayerView>
+
+
+
+
+            <TextView
+                android:id="@+id/tv_step_short_desc"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="28sp"
+
+                tools:text="Short Desc:"
+                android:fontFamily="casual"
+                android:textColor="@color/colorPrimaryDark"/>
+            <TextView
+                android:id="@+id/tv_step_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="casual"
+                android:gravity="center"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="28sp"
+                tools:text="Desc" />
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</LinearLayout>
+
+
+
+
+
+
+

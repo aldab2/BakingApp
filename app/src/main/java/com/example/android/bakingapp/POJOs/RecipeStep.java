@@ -1,10 +1,12 @@
 package com.example.android.bakingapp.POJOs;
 
+import java.io.Serializable;
+
 /**
  * Created by Kingdom on 5/1/2019.
  */
 
-public class RecipeStep {
+public class RecipeStep implements Serializable {
     private int id;
     private  String shortDescription;
     private String description;
