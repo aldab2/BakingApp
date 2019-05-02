@@ -70,10 +70,7 @@ public class IngredientStepFragment extends Fragment {
     }
     @BindView(R.id.rv_ingredient)
     RecyclerView mRecyclerView;
-    @BindView(R.id.btn_next)
-    FloatingActionButton mNextButton;
-    @BindView(R.id.btn_prev)
-    FloatingActionButton mPrevButton;
+
 
 
     @Override
@@ -85,12 +82,7 @@ public class IngredientStepFragment extends Fragment {
         IngredientStepsAdapter mAdapter = new IngredientStepsAdapter(getContext(),ingredients,step,action);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mNextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Todo implement this
-            }
-        });
+
 
 
         return view;

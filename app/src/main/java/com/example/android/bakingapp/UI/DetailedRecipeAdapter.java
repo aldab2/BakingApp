@@ -110,6 +110,7 @@ public class DetailedRecipeAdapter extends RecyclerView.Adapter<DetailedRecipeAd
             }
         }
 
+
         @Override
         public void onRecipeIngredientSelected(int position) {
             if (RecipesHolder.recipes.size() != 0) {
@@ -129,18 +130,26 @@ public class DetailedRecipeAdapter extends RecyclerView.Adapter<DetailedRecipeAd
             }
         }
 
+
         @Override
         public void onRecipeStepSelected(int position) {
             if (RecipesHolder.recipes.size() != 0) {
+
                // Log.e("XXXXXX", "onRecipeClick: We ARE Here in the Adapter Holder Not Zero");
                 Log.e("XXXXXX", "onRecipeStepSelected: Position is "+position);
 
                 RecipeStep selectedStep = recipe.getSteps().get(position-1);//RecipesHolder.recipes.get(position).getSteps();
                 Bundle b = new Bundle();
-                b.putSerializable("step", selectedStep);
-                b.putString("action", "steps");
 
-                IngredientStepFragment fragment = new IngredientStepFragment();
+                b.putString("url",selectedStep.getVidURL());
+                b.putString("short_description",selectedStep.getShortDescription());
+                b.putString("description",selectedStep.getDescription());
+                b.putInt("stepID",selectedStep.getId());
+                b.putSerializable("recipe",recipe);
+               /* b.putSerializable("step", selectedStep);
+                b.putString("action", "steps");*/
+
+                VideoFragment fragment = new VideoFragment();
                 fragment.setArguments(b);
                 FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();
                 fm.beginTransaction().replace(R.id.fragment_container, fragment)

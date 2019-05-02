@@ -82,8 +82,7 @@ public class IngredientStepsAdapter extends RecyclerView.Adapter<IngredientSteps
     @Override
     public void onViewRecycled(@NonNull IngredientViewHolder holder) {
         super.onViewRecycled(holder);
-        if(holder.mExoPlayer!=null)
-        holder.releasePlayer();
+
     }
 
 
@@ -91,8 +90,7 @@ public class IngredientStepsAdapter extends RecyclerView.Adapter<IngredientSteps
     @Override
     public void onViewDetachedFromWindow(@NonNull IngredientViewHolder holder) {
         super.onViewDetachedFromWindow(holder);
-        if(holder.mExoPlayer!=null)
-        holder.releasePlayer();
+
     }
 
 
@@ -104,12 +102,12 @@ public class IngredientStepsAdapter extends RecyclerView.Adapter<IngredientSteps
           holder.mTvQuantity.setText(ingredients.get(position).getQuantity()+"");
           holder.mTvMeasure.setText(ingredients.get(position).getMeasure());
           holder.mTvIngredient.setText(ingredients.get(position).getIngredient());
-          holder.mLinearLayout.setVisibility(View.GONE);
+          //holder.mLinearLayout.setVisibility(View.GONE);
           holder.mCardView.setVisibility(View.VISIBLE);
 
 
       }
-      else if( holder.mTvStepShortDec!=null && holder.mTvStepDesc!=null && action.equals("steps") )
+      /*else if( holder.mTvStepShortDec!=null && holder.mTvStepDesc!=null && action.equals("steps") )
 
       {
           Log.e("XXXXXX", "We are in the step thingee " );
@@ -124,7 +122,7 @@ public class IngredientStepsAdapter extends RecyclerView.Adapter<IngredientSteps
 
 
 
-      }
+      }*/
       else
           Log.e("XXXXXX", "FATAL ERROR Some view are null " );
 
@@ -153,7 +151,7 @@ public class IngredientStepsAdapter extends RecyclerView.Adapter<IngredientSteps
         TextView mTvIngredient;
         @BindView(R.id.cv_ingredient_item)
         CardView mCardView;
-        @BindView(R.id.exoview_step)
+        /*@BindView(R.id.exoview_step)
         SimpleExoPlayerView mPlayerView;
         @BindView(R.id.ll_step_item)
         LinearLayout mLinearLayout;
@@ -166,22 +164,22 @@ public class IngredientStepsAdapter extends RecyclerView.Adapter<IngredientSteps
         MediaSessionCompat mMediaSession;
         PlaybackStateCompat.Builder mStateBuilder;
         ExoPlayer mExoPlayer;
-
+*/
         public IngredientViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
 
-            initializeMediaSession();
+            /*initializeMediaSession();
             if(step !=null) {
                 Uri uri = Uri.parse(step.getVidURL());
                 initializePlayer(uri);
-            }
+            }*/
 
 
         }
 
 
-        private void initializeMediaSession() {
+       /* private void initializeMediaSession() {
 
             // Create a MediaSessionCompat.
             mMediaSession = new MediaSessionCompat(context, " ");
@@ -237,7 +235,7 @@ public class IngredientStepsAdapter extends RecyclerView.Adapter<IngredientSteps
             mExoPlayer.release();
             mExoPlayer = null;
             mMediaSession.setActive(false);
-        }
+        }*/
 
     }
 }

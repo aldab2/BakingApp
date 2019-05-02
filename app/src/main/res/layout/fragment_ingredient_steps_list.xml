@@ -21,42 +21,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"></android.support.v7.widget.RecyclerView>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/btn_prev"
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/colorSugarish"
-        android:backgroundTint="@color/colorSugarish"
-        android:src="@drawable/baseline_keyboard_arrow_left_black_48dp"
-        android:text="@string/btn_prev"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rv_ingredient"
-        app:layout_constraintVertical_bias="1.0"
-        tools:text="Prev" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/btn_next"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/colorSugarish"
-        android:backgroundTint="@color/colorSugarish"
-        android:src="@drawable/baseline_keyboard_arrow_right_black_48dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rv_ingredient"
-        app:layout_constraintVertical_bias="1.0"
-
-        />
 
 
 
