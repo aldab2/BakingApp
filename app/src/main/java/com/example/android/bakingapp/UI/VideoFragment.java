@@ -3,6 +3,7 @@ package com.example.android.bakingapp.UI;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -48,11 +49,13 @@ import butterknife.ButterKnife;
 public class VideoFragment extends Fragment implements ExoPlayer.EventListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_URL = "url";
-    private static final String ARG_SHORT_DESC = "short_description";
-    private static final String ARG_DESC = "description";
-    private static final String ARG_STEP_ID = "stepID";
-    private static final String ARG_RECIPE = "recipe";
+     static final String ARG_URL = "url";
+     static final String ARG_SHORT_DESC = "short_description";
+     static final String ARG_DESC = "description";
+     static final String ARG_STEP_ID = "stepID";
+     static final String ARG_RECIPE = "recipe";
+     static final String ARG_PLAYER_POSITION = "player_position";
+
 
     // TODO: Rename and change types of parameters
     private String VidURL;
@@ -60,6 +63,7 @@ public class VideoFragment extends Fragment implements ExoPlayer.EventListener {
     private String description;
     private int stepId;
     private Recipe recipe;
+    private long position;
     MediaSessionCompat mMediaSession;
     PlaybackStateCompat.Builder mStateBuilder;
     SimpleExoPlayer mExoPlayer;
@@ -98,9 +102,19 @@ public class VideoFragment extends Fragment implements ExoPlayer.EventListener {
             description = getArguments().getString(ARG_DESC);
             stepId = getArguments().getInt(ARG_STEP_ID);
             recipe = (Recipe) getArguments().getSerializable(ARG_RECIPE);
+            if (savedInstanceState!=null){
+                position = savedInstanceState.getLong(ARG_PLAYER_POSITION,0);
+            }
 
         }
     }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putLong(ARG_PLAYER_POSITION,mExoPlayer.getCurrentPosition());
+        super.onSaveInstanceState(outState);
+    }
+
     @BindView(R.id.exoview_step)
     SimpleExoPlayerView mPlayerView;
     @BindView(R.id.tv_step_short_desc)
@@ -269,7 +283,9 @@ public class VideoFragment extends Fragment implements ExoPlayer.EventListener {
                 String userAgent = Util.getUserAgent(getContext(), "ClassicalMusicQuiz");
                 MediaSource mediaSource = new ExtractorMediaSource(mediaUri, new DefaultDataSourceFactory(
                         getContext(), userAgent), new DefaultExtractorsFactory(), null, null);
+
                 mExoPlayer.prepare(mediaSource);
+                mExoPlayer.seekTo(position);
                 mExoPlayer.setPlayWhenReady(true);
             }
         }
