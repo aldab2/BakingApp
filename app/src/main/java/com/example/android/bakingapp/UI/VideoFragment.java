@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.android.bakingapp.POJOs.NextPrevButtonEvent;
 import com.example.android.bakingapp.POJOs.Recipe;
 import com.example.android.bakingapp.POJOs.RecipeStep;
 import com.example.android.bakingapp.R;
@@ -34,6 +35,8 @@ import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -111,6 +114,7 @@ public class VideoFragment extends Fragment implements ExoPlayer.EventListener {
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
+        if (mExoPlayer!=null)
         outState.putLong(ARG_PLAYER_POSITION,mExoPlayer.getCurrentPosition());
         super.onSaveInstanceState(outState);
     }
@@ -151,8 +155,11 @@ public class VideoFragment extends Fragment implements ExoPlayer.EventListener {
                 if(mExoPlayer!= null)
                 releasePlayer();
                 stepId = (stepId +1)% recipe.getSteps().size();
-                RecipeStep selectedStep = recipe.getSteps().get(stepId);//RecipesHolder.recipes.get(position).getSteps();
-                toNextStep(selectedStep);
+                RecipeStep selectedStep = recipe.getSteps().get(stepId);//PublicDataHolder.recipes.get(position).getSteps();
+               // toNextStep(selectedStep);
+                EventBus.getDefault().post(new NextPrevButtonEvent(recipe,selectedStep));
+
+
             }
         });
         mPrevButton.setOnClickListener(new View.OnClickListener() {
@@ -164,8 +171,9 @@ public class VideoFragment extends Fragment implements ExoPlayer.EventListener {
                 stepId =    (stepId -1)% recipe.getSteps().size();
                 if (stepId<0)
                     stepId=0;
-                RecipeStep selectedStep = recipe.getSteps().get(stepId);//RecipesHolder.recipes.get(position).getSteps();
-                toNextStep(selectedStep);
+                RecipeStep selectedStep = recipe.getSteps().get(stepId);//PublicDataHolder.recipes.get(position).getSteps();
+               // toNextStep(selectedStep);
+                EventBus.getDefault().post(new NextPrevButtonEvent(recipe,selectedStep));
             }
         });
 
@@ -174,7 +182,7 @@ public class VideoFragment extends Fragment implements ExoPlayer.EventListener {
         return view;
     }
 
-    private void toNextStep(RecipeStep selectedStep) {
+    /*private void toNextStep(RecipeStep selectedStep) {
         Bundle b = new Bundle();
 
         b.putString("url",selectedStep.getVidURL());
@@ -182,15 +190,15 @@ public class VideoFragment extends Fragment implements ExoPlayer.EventListener {
         b.putString("description",selectedStep.getDescription());
         b.putInt("stepID",selectedStep.getId());
         b.putSerializable("recipe",recipe);
-               /* b.putSerializable("step", selectedStep);
-                b.putString("action", "steps");*/
+               *//* b.putSerializable("step", selectedStep);
+                b.putString("action", "steps");*//*
 
         VideoFragment fragment = new VideoFragment();
         fragment.setArguments(b);
         FragmentManager fm = ((AppCompatActivity) getContext()).getSupportFragmentManager();
         fm.beginTransaction().replace(R.id.fragment_container, fragment)
                 .commit();
-    }
+    }*/
 
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -290,7 +298,7 @@ public class VideoFragment extends Fragment implements ExoPlayer.EventListener {
             }
         }
         private void releasePlayer() {
-            Log.e("XXXXXX", "releasePlayer: Releasing ?" );
+            Log.d("XXXXXX", "releasePlayer: Releasing ?" );
             mExoPlayer.stop();
             mExoPlayer.release();
             mExoPlayer = null;

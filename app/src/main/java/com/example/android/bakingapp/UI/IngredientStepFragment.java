@@ -1,18 +1,13 @@
 package com.example.android.bakingapp.UI;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.android.bakingapp.POJOs.Data.RecipesHolder;
 import com.example.android.bakingapp.POJOs.Ingredient;
 import com.example.android.bakingapp.POJOs.RecipeStep;
 import com.example.android.bakingapp.R;

@@ -1,7 +1,6 @@
 package com.example.android.bakingapp.UI;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.example.android.bakingapp.POJOs.Data.RecipesHolder;
+import com.example.android.bakingapp.POJOs.Data.PublicDataHolder;
 import com.example.android.bakingapp.POJOs.Recipe;
 import com.example.android.bakingapp.R;
 import com.example.android.bakingapp.Utils.RecipeJsonUtils;
@@ -39,6 +38,7 @@ import butterknife.ButterKnife;
  * create an instance of this fragment.
  */
 public class RecipesListFragment extends Fragment {
+    String TAG = RecipesListFragment.class.getSimpleName();
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_LIST_RECIPES = "recipes";
@@ -54,13 +54,9 @@ public class RecipesListFragment extends Fragment {
 
 
     RecipeAdapter mAdapter;
-    //private String mParam2;
 
-    private OnRicipeClickListener mListener;
 
-    public RecipesListFragment() {
-        // Required empty public constructor
-    }
+
 
     /**
      * Use this factory method to create a new instance of
@@ -85,7 +81,7 @@ public class RecipesListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            RecipesHolder.recipes = (ArrayList<Recipe>) getArguments().getSerializable(ARG_LIST_RECIPES);
+            PublicDataHolder.recipes = (ArrayList<Recipe>) getArguments().getSerializable(ARG_LIST_RECIPES);
             //mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
@@ -101,6 +97,7 @@ public class RecipesListFragment extends Fragment {
         mRecylerView.setAdapter(mAdapter);
         int cols = calculateNoOfColumns(getContext());
         mRecylerView.setLayoutManager(new GridLayoutManager(getContext(),cols));
+
 
 
 
@@ -132,7 +129,9 @@ public class RecipesListFragment extends Fragment {
             URL url = urls[0];
             ArrayList<Recipe> recipes =null;
             try {
+
                 String jsonResult = getResponseFromHttpUrl(url);
+
                 recipes  = RecipeJsonUtils.reviewJsonParse(jsonResult);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -144,38 +143,20 @@ public class RecipesListFragment extends Fragment {
         protected void onPostExecute(ArrayList<Recipe> recipes) {
             super.onPostExecute(recipes);
             mProressBar.setVisibility(View.INVISIBLE);
-            RecipesHolder.recipes = recipes;
-            mAdapter = new RecipeAdapter(RecipesHolder.recipes,getContext());
+            mAdapter = new RecipeAdapter(recipes,getContext());
+            mAdapter.notifyDataSetChanged();
             mRecylerView.setAdapter(mAdapter);
 
 
+
         }
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    /*public void onRecipeClicked(int position) {
-        if (mListener != null) {
-            mListener.onRecipeClick(position);
-        }
-    }*/
 
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnRicipeClickListener) {
-            mListener = (OnRicipeClickListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnRicipeClickListener");
-        }
-    }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
+
+
 
     /**
      * This interface must be implemented by activities that contain this
@@ -187,16 +168,15 @@ public class RecipesListFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnRicipeClickListener {
-        // TODO: Update argument type and name
-        void onRecipeClick(int position);
-    }
+
+
+
 
     public static int calculateNoOfColumns(Context context) {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
         int noOfColumns = 0;
-        Log.e("XXXX", "dpWidth = : "+dpWidth );
+        Log.d("XXXX", "dpWidth = : "+dpWidth );
         if(dpWidth <=599){
             noOfColumns=1;
         }else {

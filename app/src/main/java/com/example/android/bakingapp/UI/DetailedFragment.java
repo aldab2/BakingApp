@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.android.bakingapp.POJOs.Data.PublicDataHolder;
 import com.example.android.bakingapp.POJOs.Recipe;
 import com.example.android.bakingapp.R;
 
@@ -26,22 +27,14 @@ public class DetailedFragment extends Fragment {
     private Recipe recipe;
     //private String mParam2;
 
-    private OnFragmentClickListener mListener;
+
 
     public DetailedFragment() {
         // Required empty public constructor
     }
 
 
-    // TODO: Rename and change types and number of parameters
-  /*  public static DetailedFragment newInstance(String param1, String param2) {
-        DetailedFragment fragment = new DetailedFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }*/
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,7 +42,7 @@ public class DetailedFragment extends Fragment {
         if (getArguments() != null) {
             recipe = (Recipe) getArguments().getSerializable(ARG_RECIPE);
 
-           // mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
     }
     @BindView(R.id.rv_list_ing_steps)
@@ -65,6 +58,7 @@ public class DetailedFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_detailed, container, false);
         ButterKnife.bind(this,view);
       if(recipe!=null){
+
           DetailedRecipeAdapter detailedRecipeAdapter = new DetailedRecipeAdapter(recipe,getContext());
           mRecyclerView.setAdapter(detailedRecipeAdapter);
           mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -73,44 +67,11 @@ public class DetailedFragment extends Fragment {
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onItemClickedPressed(int position) {
-        if (mListener != null) {
-            mListener.onRecipeIngredientSelected(position);
-            mListener.onRecipeStepSelected(position);
-        }
-    }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentClickListener) {
-            mListener = (OnFragmentClickListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentClickListener");
-        }
-    }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentClickListener {
-        // TODO: Update argument type and name
-        void onRecipeIngredientSelected(int position);
-        void onRecipeStepSelected(int position);
-    }
+
+
+
+
 }

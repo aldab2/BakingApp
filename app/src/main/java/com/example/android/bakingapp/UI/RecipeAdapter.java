@@ -12,9 +12,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.android.bakingapp.POJOs.Data.RecipesHolder;
+import com.example.android.bakingapp.POJOs.Data.PublicDataHolder;
 import com.example.android.bakingapp.POJOs.Recipe;
+import com.example.android.bakingapp.POJOs.RecipeClickedMessageEvent;
 import com.example.android.bakingapp.R;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
@@ -35,8 +38,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     public RecipeAdapter(){
 
     }
+
+
+
     public RecipeAdapter(ArrayList<Recipe> recipes, Context context){
-        Log.e("XXXXX", "Initialzing Adapter with size = "+recipes.size() );
     this.recipes =recipes;
     this.context = context;
     viewHolderCount = recipes.size();
@@ -55,11 +60,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         View view = inflater.inflate(layoutIdForListItem, viewGroup, shouldAttachToParentImmediately);
         RecipeViewHolder viewHolder = new RecipeViewHolder(view);
 
-        //viewHolder.viewHolderIndex.setText("ViewHolder index: " + viewHolderCount);
 
-
-
-        //viewHolderCount++;
 
         return viewHolder;
 
@@ -69,6 +70,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     @Override
     public void onBindViewHolder(RecipeViewHolder holder, int position) {
             holder.bind(holder);
+
     }
 
     @Override
@@ -79,7 +81,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
 
     // TODO implement View.onClickListner
-    class RecipeViewHolder extends  RecyclerView.ViewHolder implements View.OnClickListener ,RecipesListFragment.OnRicipeClickListener  {
+    class RecipeViewHolder extends  RecyclerView.ViewHolder implements View.OnClickListener /*,RecipesListFragment.OnRicipeClickListener */ {
             TextView mRecipeName;
             int clickedViewPosition=-99;
         public RecipeViewHolder(View view){
@@ -89,7 +91,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
             // TODO Complete This Section
             // TODO (7) Call setOnClickListener on the View passed into the constructor (use 'this' as the OnClickListener)
-            view.setOnClickListener(this);
+            view.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    EventBus.getDefault().post(new RecipeClickedMessageEvent(recipes.get(position),position));
+                }
+            });
         }
 
 
@@ -103,27 +112,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         }
         Toast mToast;
 
-        @Override
-        public void onRecipeClick(int position) {
 
-            if(RecipesHolder.recipes.size()!=0) {
-                Log.e("XXXXXX", "onRecipeClick: We ARE Here in the Adapter Holder Not Zero" );
-
-                Recipe selectedRicipe = RecipesHolder.recipes.get(position);
-                Bundle b = new Bundle();
-                b.putSerializable("recipe", selectedRicipe);
-
-                DetailedFragment detailedFragment = new DetailedFragment();
-                detailedFragment.setArguments(b);
-                FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();
-                fm.beginTransaction().replace(R.id.fragment_container, detailedFragment)
-                        .addToBackStack(null)
-                        .commit();
-            }
-            else
-            Log.e("XXXXXX", "onRecipeClick: We ARE Here in the Adapter Holder Size Zero" );
-
-        }
 
         @Override
         public void onClick(View view) {
@@ -136,7 +125,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
                 b.putSerializable("recipe",recipes.get(clickedViewPosition));
 
-                onRecipeClick(clickedViewPosition);
+                //onRecipeClick(clickedViewPosition);
 
 
 

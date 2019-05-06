@@ -19,7 +19,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="0dp"
         android:visibility="visible"
-        card_view:cardBackgroundColor="@color/colorSugarish"
+        card_view:cardBackgroundColor="@color/colorAccent"
         card_view:cardCornerRadius="12dp"
         card_view:layout_constraintBottom_toBottomOf="@+id/ll_step_item"
         card_view:layout_constraintEnd_toEndOf="parent"
@@ -36,19 +36,19 @@
                 android:layout_height="41dp"
 
                 android:layout_gravity="center"
-                android:layout_marginEnd="4dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="12dp"
                 android:fontFamily="sans-serif-smallcaps"
                 android:gravity="center"
-
                 android:text="@string/quantitiy"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="22sp"
                 card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintHorizontal_bias="0.075"
+                card_view:layout_constraintHorizontal_bias="0.04"
                 card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/tv_ingredient_ingredient"
                 tools:text="Quantity:" />
 
             <TextView
@@ -56,18 +56,22 @@
                 android:layout_width="167dp"
                 android:layout_height="41dp"
                 android:layout_gravity="center"
-                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:fontFamily="sans-serif-smallcaps"
                 android:gravity="center"
-
                 android:text="@string/measure"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="22sp"
-                card_view:layout_constraintEnd_toEndOf="@+id/tv_ingredient_quantity"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintHorizontal_bias="0.0"
                 card_view:layout_constraintStart_toStartOf="@+id/fxtv_ingredient_quantity"
                 card_view:layout_constraintTop_toBottomOf="@+id/fxtv_ingredient_quantity"
+                card_view:layout_constraintVertical_bias="0.0"
                 tools:text="Measure:" />
 
             <TextView
@@ -76,17 +80,17 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+
                 android:layout_marginTop="8dp"
                 android:fontFamily="sans-serif-smallcaps"
                 android:gravity="center"
-
                 android:text="@string/ingedrient"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="22sp"
-                card_view:layout_constraintEnd_toEndOf="@+id/tv_ingredient_measure"
-                card_view:layout_constraintHorizontal_bias="0.0"
-                card_view:layout_constraintStart_toStartOf="@+id/fxtv_ingredient_measure"
-                card_view:layout_constraintTop_toBottomOf="@+id/fxtv_ingredient_measure"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent"
                 tools:text="Ingredient:" />
 
             <TextView
@@ -94,18 +98,20 @@
                 android:layout_width="171dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
+
+                android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginStart="4dp"
                 android:layout_marginTop="8dp"
                 android:fontFamily="sans-serif"
                 android:gravity="center"
-
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="18sp"
+                card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintHorizontal_bias="1.0"
+                card_view:layout_constraintHorizontal_bias="0.555"
                 card_view:layout_constraintStart_toEndOf="@+id/fxtv_ingredient_quantity"
-                card_view:layout_constraintTop_toTopOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/tv_ingredient_ingredient"
+                card_view:layout_constraintVertical_bias="0.137"
                 tools:text="1.5" />
 
             <TextView
@@ -113,40 +119,38 @@
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
+                android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginStart="4dp"
+
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:fontFamily="sans-serif"
                 android:gravity="center"
-
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="18sp"
+                card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintHorizontal_bias="1.0"
-                card_view:layout_constraintStart_toStartOf="@+id/tv_ingredient_quantity"
+                card_view:layout_constraintStart_toEndOf="@+id/fxtv_ingredient_measure"
                 card_view:layout_constraintTop_toBottomOf="@+id/tv_ingredient_quantity"
                 tools:text="Cup" />
 
             <TextView
                 android:id="@+id/tv_ingredient_ingredient"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
 
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:fontFamily="sans-serif"
-
                 android:gravity="center"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="18sp"
-                card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toEndOf="@+id/fxtv_ingredient_ingredient"
-                card_view:layout_constraintHorizontal_bias="0.0"
+                android:textSize="22sp"
+                card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toBottomOf="@+id/fxtv_ingredient_ingredient"
-                card_view:layout_constraintVertical_bias="1.0"
                 tools:text="Mascapone Cheese(room temperature)" />
 
         </android.support.constraint.ConstraintLayout>

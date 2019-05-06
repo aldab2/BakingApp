@@ -599,11 +599,11 @@ public class RecipeJsonUtils {
                         thubURL= jsonStep.getString("thumbnailURL");
                         RecipeStep step = new RecipeStep(stepId,shortDesc,description,vidURL,thubURL);
                         steps.add(step);
-                        Log.e("XXXX", "reviewJsonParse: "+step.getShortDescription() );
+                        Log.d("XXXX", "reviewJsonParse: "+step.getShortDescription() );
                     }
 
                 }
-                //Log.e("XXXXX"," Name = "+name+" id: "+id );
+                //Log.d("XXXXX"," Name = "+name+" id: "+id );
                 Recipe parsedRecipe = new Recipe(id,name,ingredients,steps,servings);
                 recipes.add(parsedRecipe);
 

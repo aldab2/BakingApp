@@ -96,9 +96,9 @@ public class IngredientStepsAdapter extends RecyclerView.Adapter<IngredientSteps
 
     @Override
     public void onBindViewHolder(@NonNull IngredientViewHolder holder, int position) {
-        Log.e("XXX", "Get REady +"+position );
+        Log.d("XXX", "Get REady +"+position );
       if(holder.mTvIngredient != null && holder.mTvMeasure!=null && holder.mTvQuantity!=null && action.equals("ingredients")){
-          Log.e("XXX", "BOOM Inside Ingredient Block " );
+          Log.d("XXX", "BOOM Inside Ingredient Block " );
           holder.mTvQuantity.setText(ingredients.get(position).getQuantity()+"");
           holder.mTvMeasure.setText(ingredients.get(position).getMeasure());
           holder.mTvIngredient.setText(ingredients.get(position).getIngredient());
@@ -110,7 +110,7 @@ public class IngredientStepsAdapter extends RecyclerView.Adapter<IngredientSteps
       /*else if( holder.mTvStepShortDec!=null && holder.mTvStepDesc!=null && action.equals("steps") )
 
       {
-          Log.e("XXXXXX", "We are in the step thingee " );
+          Log.d("XXXXXX", "We are in the step thingee " );
           holder.mLinearLayout.setVisibility(View.VISIBLE);
           holder.mCardView.setVisibility(View.GONE);
           holder.mTvStepShortDec.setText(step.getShortDescription());
@@ -124,7 +124,7 @@ public class IngredientStepsAdapter extends RecyclerView.Adapter<IngredientSteps
 
       }*/
       else
-          Log.e("XXXXXX", "FATAL ERROR Some view are null " );
+          Log.d("XXXXXX", "FATAL ERROR Some view are null " );
 
 
     }
@@ -230,7 +230,7 @@ public class IngredientStepsAdapter extends RecyclerView.Adapter<IngredientSteps
             }
         }
         private void releasePlayer() {
-            Log.e("XXXXXX", "releasePlayer: Releasing ?" );
+            Log.d("XXXXXX", "releasePlayer: Releasing ?" );
             mExoPlayer.stop();
             mExoPlayer.release();
             mExoPlayer = null;
