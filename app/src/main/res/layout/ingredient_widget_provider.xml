@@ -1,14 +1,16 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorPrimary"
     android:padding="@dimen/widget_margin"
+    android:orientation="vertical"
     android:layout_margin="4dp">
 
 
     <TextView
-        android:id="@+id/fxtv_ingredients"
+        android:id="@+id/fxtv_ingredients_title"
         android:layout_width="match_parent"
+
         android:gravity="center"
 
         android:layout_height="wrap_content"
@@ -32,23 +34,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        android:layout_below="@id/fxtv_ingredients"
-        tools:listitem="@layout/ingredient_step_item"
+
+        tools:listitem="@layout/ing_widget_item"
         >
 
     </ListView>
 
-    <TextView
-        android:id="@+id/empty_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="@string/app_name"
-        android:textColor="#ffffff"
-        android:textSize="20sp"
-        android:visibility="gone" />
 
 
 
 
-</RelativeLayout>
+
+</LinearLayout>

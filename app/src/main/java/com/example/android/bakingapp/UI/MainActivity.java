@@ -1,5 +1,8 @@
 package com.example.android.bakingapp.UI;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.Intent;
 import android.opengl.Visibility;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
@@ -101,9 +104,18 @@ public class MainActivity extends AppCompatActivity  {
     @Subscribe
     public void onEvent(RecipeClickedMessageEvent event){
         Log.e(TAG, "onEvent: Ooooh Common! " );
-        IngredientWidgetProvider.sendRefreshBroadcast(this,event.getRecipe());
-        if(event.getRecipe()!=null) {
-            IngredientWidgetService.startActionUdpateWidget(this,event.getRecipe());
+        Intent intent = new Intent(this, IngredientsWidgetProvider.class);
+        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        // Use an array and EXTRA_APPWIDGET_IDS instead of AppWidgetManager.EXTRA_APPWIDGET_ID,
+        // since it seems the onUpdate() is only fired on that:
+        int[] ids = AppWidgetManager.getInstance(getApplication()).getAppWidgetIds
+                (new ComponentName(getApplication(), IngredientsWidgetProvider.class));
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+        intent.putExtra("mRecipe",event.getRecipe());
+
+        sendBroadcast(intent);
+
+
 
             if (!isTablet) {
 
@@ -158,7 +170,7 @@ public class MainActivity extends AppCompatActivity  {
 
 
 
-    }
+
     @Subscribe
     public void onEvent(IngredientClickedMesssageEvent event){
 
