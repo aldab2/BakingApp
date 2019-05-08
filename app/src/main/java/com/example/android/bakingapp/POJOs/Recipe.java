@@ -22,6 +22,12 @@ public class Recipe implements Serializable {
         this.id = id;
         this.name = name;
         this.servings = servings;
+        ingredients = new ArrayList<>();
+        steps = new ArrayList<>();
+        ingredients.add(new Ingredient(1,"Pascal","Gas"));
+        ingredients.add(new Ingredient(4,"Meter","Wire"));
+        steps.add(new RecipeStep(1,"ShortDisc","Desc","DUMMY.com","Dummy2.com"));
+
     }
 
     public Recipe(int id, String name, ArrayList<Ingredient> ingredients, ArrayList<RecipeStep> steps, int servings) {
