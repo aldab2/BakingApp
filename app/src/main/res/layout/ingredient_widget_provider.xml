@@ -1,0 +1,54 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    android:padding="@dimen/widget_margin"
+    android:layout_margin="4dp">
+
+
+    <TextView
+        android:id="@+id/fxtv_ingredients"
+        android:layout_width="match_parent"
+        android:gravity="center"
+
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:scrollbars="vertical"
+        android:padding="4dp"
+        android:layout_marginTop="21dp"
+        android:background="@color/colorSugarish"
+        android:contentDescription="@string/appwidget_text"
+        android:text="@string/ingredients"
+        android:textColor="#ffffff"
+        android:textSize="24sp"
+        android:textStyle="bold|italic"
+        android:layout_margin="4dp"/>
+
+
+    <ListView
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/lv_widget_ingredients"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:layout_below="@id/fxtv_ingredients"
+        tools:listitem="@layout/ingredient_step_item"
+        >
+
+    </ListView>
+
+    <TextView
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
+        android:visibility="gone" />
+
+
+
+
+</RelativeLayout>

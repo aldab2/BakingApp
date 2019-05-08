@@ -1,5 +1,6 @@
 package com.example.android.bakingapp.UI;
 
+import android.opengl.Visibility;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
@@ -9,7 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
+import android.widget.ListView;
 
 import com.example.android.bakingapp.POJOs.IngredientClickedMesssageEvent;
 import com.example.android.bakingapp.POJOs.Data.PublicDataHolder;
@@ -32,8 +35,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity  {
     String TAG = MainActivity.class.getSimpleName();
     int secondFrameVisibility;
-
-MediaSessionCompat mMediaSession;
+    MediaSessionCompat mMediaSession;
     PlaybackStateCompat.Builder mStateBuilder;
     @BindView(R.id.fragment2_container)
     @Nullable
@@ -43,24 +45,28 @@ MediaSessionCompat mMediaSession;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        isTablet = findViewById(R.id.ll_tablet) !=null;
-        EventBus.getDefault().register(this);
 
-        if (savedInstanceState!= null) {
+        //check if it is a tablet
+        if (savedInstanceState!= null)
             isTablet = savedInstanceState.getBoolean("istablet");
+        else
+        isTablet = findViewById(R.id.ll_tablet) !=null;
 
-            if (secondFrameLayout!=null)
-            secondFrameVisibility = savedInstanceState.getInt("visibility");
-            if (secondFrameLayout != null)
-            secondFrameLayout.setVisibility(secondFrameVisibility);
-            Log.e(TAG, "onCreate: isTablet: "+isTablet );
-
-        }
         if (isTablet) {
             ButterKnife.bind(this);
-            secondFrameLayout.setVisibility(View.GONE);
 
         }
+        if (savedInstanceState!=null) {
+            secondFrameVisibility = savedInstanceState.getInt("visibility", View.GONE);
+            if (secondFrameLayout!=null)
+            secondFrameLayout.setVisibility(secondFrameVisibility);
+        }
+
+
+            Log.e(TAG, "onCreate: isTablet: "+isTablet );
+
+
+
 
 
 
@@ -85,10 +91,20 @@ MediaSessionCompat mMediaSession;
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+
+    }
+
     @Subscribe
     public void onEvent(RecipeClickedMessageEvent event){
         Log.e(TAG, "onEvent: Ooooh Common! " );
+        IngredientWidgetProvider.sendRefreshBroadcast(this,event.getRecipe());
         if(event.getRecipe()!=null) {
+            IngredientWidgetService.startActionUdpateWidget(this,event.getRecipe());
+
             if (!isTablet) {
 
                 Recipe selectedRicipe = event.getRecipe();

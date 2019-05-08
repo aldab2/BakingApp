@@ -8,4 +8,7 @@
     <string name="ingedrient">Ingredient:</string>
     <string name="btn_next">Next</string>
     <string name="btn_prev">Previous</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="ingredients">Ingredients</string>
 </resources>

@@ -40,4 +40,11 @@ public class Ingredient implements Serializable {
     public void setIngredient(String ingredient) {
         this.ingredient = ingredient;
     }
+
+    @Override
+    public String toString() {
+        return "Ingredient:" +ingredient+"\n"
+                +"Quantity: "+quantity+"\n"
+                +"Measure: "+measure+"\n";
+    }
 }
