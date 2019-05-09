@@ -24,7 +24,6 @@ public class Recipe implements Serializable {
         this.servings = servings;
         ingredients = new ArrayList<>();
         steps = new ArrayList<>();
-        ingredients.add(new Ingredient(1,"Pascal","Gas"));
         ingredients.add(new Ingredient(4,"Meter","Wire"));
         steps.add(new RecipeStep(1,"ShortDisc","Desc","DUMMY.com","Dummy2.com"));
 

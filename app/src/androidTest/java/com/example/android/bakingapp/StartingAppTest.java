@@ -2,6 +2,11 @@ package com.example.android.bakingapp;
 
 
 
+import android.support.test.espresso.Espresso;
+import android.support.test.espresso.assertion.ViewAssertions;
+import android.support.test.espresso.matcher.ViewMatchers;
+import android.support.test.rule.ActivityTestRule;
+import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.app.FragmentManager;
 
 import com.example.android.bakingapp.POJOs.Recipe;
@@ -19,14 +24,6 @@ import org.junit.runner.RunWith;
 import java.util.ArrayList;
 import java.util.EnumSet;
 
-import androidx.test.espresso.Espresso;
-import androidx.test.espresso.ViewAction;
-import androidx.test.espresso.ViewAssertion;
-import androidx.test.espresso.action.ViewActions;
-import androidx.test.espresso.assertion.ViewAssertions;
-import androidx.test.espresso.matcher.ViewMatchers;
-import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
 
 
 /**
